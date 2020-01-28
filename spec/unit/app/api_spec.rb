@@ -25,7 +25,7 @@ module ExpenseTracker
 
         it 'returns the expense id' do
           post '/expenses', JSON.generate(expense)
-          p parsed.class
+
           expect(parsed).to include('expense_id' => 417)
         end
 
@@ -74,13 +74,13 @@ module ExpenseTracker
         before do
           allow(ledger).to receive(:expenses_on)
           .with(date)
-          .and_return(ExpenseRecords.new(expense_records))
+          .and_return(['expense1', 'expense2'])
         end
 
         it 'returns the expense records as JSON' do
           get '/expenses/2017-06-12'
 
-          expect(parsed.first).to include('payee' => 'Whole Foods')
+          expect(parsed).to eq(['expense1', 'expense2'])
         end
 
         it 'responds with a 200 (OK)' do
@@ -96,7 +96,7 @@ module ExpenseTracker
         before do
           allow(ledger).to receive(:expenses_on)
           .with(date)
-          .and_return(ExpenseRecords.new([]))
+          .and_return([])
         end
 
         it 'returns an empty array as JSON' do
