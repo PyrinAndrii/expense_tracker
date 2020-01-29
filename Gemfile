@@ -14,3 +14,5 @@ gem 'sequel', '~> 5.28'
 gem 'sqlite3', '~> 1.4', '>= 1.4.2'
 
 gem 'pry', '~> 0.12.2'
+
+gem 'addressable'
